@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2023/03/27 20:11:10.393,=C:\Users\Andres\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2023/03/27 20:11:10.742,=C:\Users\Andres\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2023/03/27 20:17:17.785,D:\Universidad\Clases\Program 2\Unit1.h=C:\Users\Andres\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
+    <Transaction>2023/03/27 20:17:17.785,D:\Universidad\Clases\Program 2\Unit1.cpp=C:\Users\Andres\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2023/03/27 20:17:17.785,D:\Universidad\Clases\Program 2\Unit1.dfm=C:\Users\Andres\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2023/03/27 20:17:47.368,D:\Universidad\Clases\Program 2\Ejercices.h=C:\Users\Andres\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2023/03/27 20:18:01.499,D:\Universidad\Clases\Program 2\EjerRecursivos.cbproj=C:\Users\Andres\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+  </Transactions>
+</BorlandProject>
