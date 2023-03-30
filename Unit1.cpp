@@ -50,16 +50,6 @@ byte Suma (Cardinal x)
 
 
 //---------------------------------------------------------------------------
-void __fastcall TForm1::Button2Click(TObject *Sender)
-{
-	Edit2->Text = Suma(StrToInt(Edit1->Text));
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::Button1Click(TObject *Sender)
-{
-    Edit2->Text = Mayor(StrToInt(Edit1->Text));
-}
-//---------------------------------------------------------------------------
 void ElimDigImp(Cardinal &x)
 {
 	if (x < 10)//Caso base cuando el nro de digitos = 1
@@ -140,4 +130,41 @@ void __fastcall TForm1::MAyorMenor1Click(TObject *Sender)
     Edit3->Text = Mayor;
 }
 //---------------------------------------------------------------------------
+void EliminDig(Cardinal &x, byte i)
+{
+	if ( x < 10 ){
+		if(x == i)
+			x = 0;
+	} else {
+		byte d = x % 10;
+		x = x / 10;
+		EliminDig(x, i);
+		if (d!=i)
+			x = x*10 + d;
+	}
+};
+
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::Eliminarundigito1Click(TObject *Sender)
+{
+	Cardinal x = StrToInt(Edit1->Text);
+	EliminDig( x, StrToInt(Edit2->Text));
+    Edit3->Text = x;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Mayor1Click(TObject *Sender)
+{
+	Edit2->Text = Mayor(StrToInt(Edit1->Text));
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Suma1Click(TObject *Sender)
+{
+	Edit2->Text = Suma(StrToInt(Edit1->Text));
+}
+//---------------------------------------------------------------------------
+
 

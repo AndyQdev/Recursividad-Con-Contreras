@@ -12,21 +12,27 @@
 class TForm1 : public TForm
 {
 __published:	// IDE-managed Components
-	TEdit *Edit1;
-	TEdit *Edit2;
-	TButton *Button1;
-	TButton *Button2;
 	TMainMenu *MainMenu1;
 	TMenuItem *Numeros1;
 	TMenuItem *Numeros2;
 	TMenuItem *Potencia1;
-	TEdit *Edit3;
 	TMenuItem *MAyorMenor1;
-	void __fastcall Button2Click(TObject *Sender);
-	void __fastcall Button1Click(TObject *Sender);
+	TMenuItem *Eliminarundigito1;
+	TMenuItem *Mayor1;
+	TMenuItem *Suma1;
+	TGroupBox *Ejercicios;
+	TEdit *Edit1;
+	TEdit *Edit2;
+	TEdit *Edit3;
+	TLabel *Label1;
+	TLabel *Label2;
+	TLabel *Label3;
 	void __fastcall Numeros2Click(TObject *Sender);
 	void __fastcall Potencia1Click(TObject *Sender);
 	void __fastcall MAyorMenor1Click(TObject *Sender);
+	void __fastcall Eliminarundigito1Click(TObject *Sender);
+	void __fastcall Mayor1Click(TObject *Sender);
+	void __fastcall Suma1Click(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TForm1(TComponent* Owner);
