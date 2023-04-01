@@ -165,6 +165,21 @@ void __fastcall TForm1::Suma1Click(TObject *Sender)
 {
 	Edit2->Text = Suma(StrToInt(Edit1->Text));
 }
+
+//---------------------------------------------------------------------------
+void EliminVocal(AnsiString &s){
+
+}
+
+
 //---------------------------------------------------------------------------
 
+
+void __fastcall TForm1::EliminarVocales1Click(TObject *Sender)
+{
+	AnsiString s = Edit1->Text;
+	EliminVocal(s);
+    Edit2->Text = s;
+}
+//---------------------------------------------------------------------------
 

@@ -130,5 +130,12 @@ object Form1: TForm1
         OnClick = Suma1Click
       end
     end
+    object Cadenas1: TMenuItem
+      Caption = 'Cadenas'
+      object EliminarVocales1: TMenuItem
+        Caption = 'Eliminar Vocales'
+        OnClick = EliminarVocales1Click
+      end
+    end
   end
 end
