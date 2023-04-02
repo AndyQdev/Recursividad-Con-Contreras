@@ -29,6 +29,9 @@ __published:	// IDE-managed Components
 	TLabel *Label3;
 	TMenuItem *Cadenas1;
 	TMenuItem *EliminarVocales1;
+	TMenuItem *Cantidaddevocales1;
+	TMenuItem *R1;
+	TMenuItem *Cantidaddeletras1;
 	void __fastcall Numeros2Click(TObject *Sender);
 	void __fastcall Potencia1Click(TObject *Sender);
 	void __fastcall MAyorMenor1Click(TObject *Sender);
@@ -36,6 +39,7 @@ __published:	// IDE-managed Components
 	void __fastcall Mayor1Click(TObject *Sender);
 	void __fastcall Suma1Click(TObject *Sender);
 	void __fastcall EliminarVocales1Click(TObject *Sender);
+	void __fastcall Cantidaddevocales1Click(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TForm1(TComponent* Owner);

@@ -179,7 +179,36 @@ void __fastcall TForm1::EliminarVocales1Click(TObject *Sender)
 {
 	AnsiString s = Edit1->Text;
 	EliminVocal(s);
-    Edit2->Text = s;
+	Edit2->Text = s;
 }
 //---------------------------------------------------------------------------
+bool Isvocal(char a){
+	AnsiString s = "AEIOUaeiouáéíóú";
+	return s.Pos(a)>0;
+};
+//---------------------------------------------------------------------------
+byte CantVoc(AnsiString s)
+{
+	byte c = 0;
+	if (s == ""){
+		c = 0;
+	} else {
+		char a = s[1];
+		s.Delete(1,1);
+		c = CantVoc(s);
+		if (Isvocal(a)){
+			c++;
+		};
+	}
+	return c;
+};
+
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Cantidaddevocales1Click(TObject *Sender)
+{
+    Edit2->Text = CantVoc(Edit1->Text);
+}
+//---------------------------------------------------------------------------
+
 
