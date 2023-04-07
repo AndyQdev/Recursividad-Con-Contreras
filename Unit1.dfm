@@ -130,7 +130,8 @@ object Form1: TForm1
         OnClick = Suma1Click
       end
       object R1: TMenuItem
-        Caption = 'R'
+        Caption = 'Next Palabra'
+        OnClick = R1Click
       end
     end
     object Cadenas1: TMenuItem
@@ -145,6 +146,10 @@ object Form1: TForm1
       end
       object Cantidaddeletras1: TMenuItem
         Caption = 'Cantidad de letras'
+      end
+      object Invertir: TMenuItem
+        Caption = 'Invertir Cadena'
+        OnClick = InvertirClick
       end
     end
   end

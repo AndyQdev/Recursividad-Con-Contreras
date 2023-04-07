@@ -210,5 +210,77 @@ void __fastcall TForm1::Cantidaddevocales1Click(TObject *Sender)
     Edit2->Text = CantVoc(Edit1->Text);
 }
 //---------------------------------------------------------------------------
+AnsiString NextString(AnsiString s){
+	AnsiString Cad;
+	char space = ' ';
+	if ((s == "")||(s[1]== space)){ //Caso base
+		Cad = "";
+	} else { //Caso general
+		AnsiString a = s[1];
+		s.Delete(1,1);
+		if (a  != space)
+			Cad = a + NextString(s);
+	}
+	return Cad;
+};
+//---------------------------------------------------------------------------
+void __fastcall TForm1::R1Click(TObject *Sender)
+{
+	Edit2->Text = NextString(Edit1->Text);
+}
+//---------------------------------------------------------------------------
 
+AnsiString Inverso1(AnsiString x){ //Menos el primero
+	AnsiString Cad;
+	byte n = x.Length();
+	if(n==0){
+		return "";
+	}else {
+	   char z = x[1];
+	   x.Delete(1,1);
+	   return  Inverso1(x) + z ;
+	}
+};
+//---------------------------------------------------------------------------
+AnsiString Inverso2(AnsiString x){ //Menos el Ultimo
+	AnsiString Cad;
+	byte n = x.Length();
+	if(n==0){
+		return "";
+	}else {
+	   char z = x[n];
+	   x.Delete(n,1);
+	   return AnsiString(z) + Inverso2(x);
+	}
+};
+//---------------------------------------------------------------------------
+AnsiString Inverso3(AnsiString x){ //Menos los 2 primeros
+	AnsiString Cad;
+	byte n = x.Length();
+	if(n<2){
+        return x;
+	}else {
+	   AnsiString z = x.SubString(1,2);
+	   x.Delete(1,2);
+	   return Inverso3(x) + z[2]+ z[1];
+	}
+};
+//---------------------------------------------------------------------------
+AnsiString Inverso4(AnsiString x){ //Menos los 2 ultimos
+	AnsiString Cad;
+	byte n = x.Length();
+	if(n<2){
+		return x;
+	}else {
+	   AnsiString z = x.SubString(1,2);
+	   x.Delete(1,2);
+	   return AnsiString(z[2])+ AnsiString(z[1]) + Inverso4(x);
+	}
+};
+//---------------------------------------------------------------------------
+void __fastcall TForm1::InvertirClick(TObject *Sender)
+{
+	Edit1->Text= Inverso3(Edit1->Text);
+}
+//---------------------------------------------------------------------------
 
