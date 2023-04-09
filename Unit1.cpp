@@ -278,9 +278,21 @@ AnsiString Inverso4(AnsiString x){ //Menos los 2 ultimos
 	}
 };
 //---------------------------------------------------------------------------
+AnsiString Inverso5(AnsiString x){ //Menos los 2 ultimos
+	AnsiString Cad;
+	byte n = x.Length();
+	if(n<2){
+		return x;
+	}else {
+	   char z = x[1], y = x[n];
+	   x.Delete(n, 1);
+	   x.Delete(1,1);
+	   return  AnsiString(y) + Inverso5(x) + AnsiString(z);
+	}
+};
 void __fastcall TForm1::InvertirClick(TObject *Sender)
 {
-	Edit1->Text= Inverso3(Edit1->Text);
+	Edit1->Text= Inverso5(Edit1->Text);
 }
 //---------------------------------------------------------------------------
 
