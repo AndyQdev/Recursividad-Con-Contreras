@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 265
-  ClientWidth = 631
+  ClientHeight = 279
+  ClientWidth = 864
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -61,43 +61,68 @@ object Form1: TForm1
       ParentFont = False
     end
     object Edit1: TEdit
-      Left = 102
+      Left = 108
       Top = 42
       Width = 161
       Height = 27
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
+      Font.Name = 'Times New Roman'
+      Font.Style = []
       ParentFont = False
       TabOrder = 0
     end
     object Edit2: TEdit
-      Left = 102
+      Left = 108
       Top = 97
       Width = 161
       Height = 27
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
+      Font.Name = 'Times New Roman'
+      Font.Style = []
       ParentFont = False
       TabOrder = 1
     end
     object Edit3: TEdit
-      Left = 102
+      Left = 108
       Top = 154
       Width = 161
       Height = 27
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
+      Font.Name = 'Times New Roman'
+      Font.Style = []
       ParentFont = False
       TabOrder = 2
+    end
+  end
+  object GroupBox1: TGroupBox
+    Left = 384
+    Top = 24
+    Width = 441
+    Height = 209
+    Caption = 'Vectores'
+    TabOrder = 1
+    object StringGrid1: TStringGrid
+      Left = 40
+      Top = 42
+      Width = 320
+      Height = 55
+      FixedCols = 0
+      RowCount = 1
+      FixedRows = 0
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goFixedRowDefAlign]
+      ParentFont = False
+      TabOrder = 0
     end
   end
   object MainMenu1: TMainMenu
@@ -128,6 +153,28 @@ object Form1: TForm1
       object Suma1: TMenuItem
         Caption = 'Suma'
         OnClick = Suma1Click
+      end
+      object R1: TMenuItem
+        Caption = 'Next Palabra'
+        OnClick = R1Click
+      end
+    end
+    object Cadenas1: TMenuItem
+      Caption = 'Cadenas'
+      object EliminarVocales1: TMenuItem
+        Caption = 'Eliminar Vocales'
+        OnClick = EliminarVocales1Click
+      end
+      object Cantidaddevocales1: TMenuItem
+        Caption = 'Cantidad de vocales'
+        OnClick = Cantidaddevocales1Click
+      end
+      object Cantidaddeletras1: TMenuItem
+        Caption = 'Cantidad de letras'
+      end
+      object Invertir: TMenuItem
+        Caption = 'Invertir Cadena'
+        OnClick = InvertirClick
       end
     end
   end

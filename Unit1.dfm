@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 265
-  ClientWidth = 397
+  ClientHeight = 279
+  ClientWidth = 864
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -98,6 +98,33 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
       TabOrder = 2
+    end
+  end
+  object GroupBox1: TGroupBox
+    Left = 384
+    Top = 24
+    Width = 441
+    Height = 209
+    Caption = 'Vectores'
+    TabOrder = 1
+    object StringGrid1: TStringGrid
+      Left = 40
+      Top = 42
+      Width = 177
+      Height = 55
+      ColCount = 3
+      DefaultColWidth = 40
+      FixedCols = 0
+      RowCount = 1
+      FixedRows = 0
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goFixedRowDefAlign]
+      ParentFont = False
+      TabOrder = 0
     end
   end
   object MainMenu1: TMainMenu
