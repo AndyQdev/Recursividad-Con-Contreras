@@ -36,6 +36,12 @@ __published:	// IDE-managed Components
 	TMenuItem *Invertir;
 	TGroupBox *GroupBox1;
 	TStringGrid *StringGrid1;
+	TButton *Button1;
+	TButton *Button2;
+	TMenuItem *EsAscendente1;
+	TMenuItem *Ascendentedescendenteoordenado1;
+	TMenuItem *Esdescendente1;
+	TMenuItem *OrdenarPrimosYnoPrimos1;
 	void __fastcall Numeros2Click(TObject *Sender);
 	void __fastcall Potencia1Click(TObject *Sender);
 	void __fastcall MAyorMenor1Click(TObject *Sender);
@@ -46,6 +52,13 @@ __published:	// IDE-managed Components
 	void __fastcall Cantidaddevocales1Click(TObject *Sender);
 	void __fastcall R1Click(TObject *Sender);
 	void __fastcall InvertirClick(TObject *Sender);
+	void __fastcall Button2Click(TObject *Sender);
+	void __fastcall Button1Click(TObject *Sender);
+	void __fastcall EsAscendente1Click(TObject *Sender);
+	void __fastcall EsDescendente1Click(TObject *Sender);
+	void __fastcall Ascendentedescendenteoordenado1Click(TObject *Sender);
+	void __fastcall OrdenarPrimosYnoPrimos1Click(TObject *Sender);
+
 private:	// User declarations
 public:		// User declarations
 	__fastcall TForm1(TComponent* Owner);

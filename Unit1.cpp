@@ -4,10 +4,15 @@
 #pragma hdrstop
 
 #include "Unit1.h"
+#include "time.h"
+#include "cstdlib"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 TForm1 *Form1;
+
+
+
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
 	: TForm(Owner)
@@ -307,4 +312,139 @@ void __fastcall TForm1::InvertirClick(TObject *Sender)
 	Edit1->Text= Inverso6(Edit1->Text);
 }
 //---------------------------------------------------------------------------
+void LoadVecRandom(TStringGrid *v, byte dimension, Word a, Word b)
+{
+    srand(time(NULL));
+	if (dimension == 0) { //Caso base
+		int num = a + rand() % ( b + 1 - a);
+		v->Cells[dimension][0]= num;
+	}else{
+		int num;
+		LoadVecRandom(v, dimension-1, a, b);
+		num = a + rand() % ( b + 1 - a);
+		v->Cells[dimension][0]= num;
+	};
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::Button2Click(TObject *Sender)
+{
+	StringGrid1->ColCount = StrToInt(InputBox("Dimension","Coloque la cantidad de Columnas",""));
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button1Click(TObject *Sender)
+{
+	Word a = StrToInt(InputBox("Random","Valor inferior(>=)",""));
+	Word b = StrToInt(InputBox("Random","Valor Superior(<=)",""));
+	LoadVecRandom(StringGrid1, StringGrid1->ColCount, a, b);
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::EsAscendente1Click(TObject *Sender)
+{
+//	if (IsAscendente(StrToInt(Edit1->Text))){
+//		Edit2->Text = "Es Ascendente";
+//	} else {
+//		Edit2->Text = "NO es Ascendente";
+//	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::EsDescendente1Click(TObject *Sender)
+{
+//	if (IsDescendente(StrToInt(Edit1->Text))){
+//		Edit2->Text = "Es Descendente";
+//	} else {
+//		Edit2->Text = "NO es Descendente";
+//	}
+}
+//---------------------------------------------------------------------------
+
+
+//---------------------------------------------------------------------------
+bool IsAscendente(Cardinal x){
+	bool b;
+	if (x<10){
+		b = true;
+	}else{
+		b = IsAscendente(x/10);
+		if (b){
+			if (x % 10 > (x / 10) % 10)
+				b = false;
+		}
+	}
+	return b;
+};
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
+bool IsDescendente(Cardinal x){
+	bool b;
+	if (x<10){
+		b = true;
+	}else
+		b = IsDescendente(x/10);
+		if (b){
+			if (x % 10 < (x / 10) % 10)
+				b = false;
+		};
+	return b;
+};
+
+
+
+//---------------------------------------------------------------------------
+bool IsPrimo(byte x)
+ {
+	AnsiString c = IntToStr(x);
+	AnsiString Primos = "2357";
+	return Primos.Pos(c) > 0;
+ };
+//---------------------------------------------------------------------------
+
+void OrdPrimosNoPrimos(Cardinal &x)
+{
+	if (x < 10){
+		//
+	}else{
+		byte num = x % 10;
+		x = x / 10;
+		OrdPrimosNoPrimos(x);
+		if (!IsPrimo(num)){
+			x = (x*10) + num;
+		} else {
+			byte base = (log10(x)+1);
+			int pot = PotenciaNum(10, base);
+			x = (num * pot)+ x;
+		}
+	};
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::Ascendentedescendenteoordenado1Click(TObject *Sender)
+{
+	if (IsAscendente(StrToInt(Edit1->Text))){
+
+		Edit2->Text = "Es Ascendente!";
+
+	}else if(IsDescendente(StrToInt(Edit1->Text))) {
+
+		Edit2->Text = "Es Descendente!";
+
+	}else throw new Exception("No esta ordenado!");
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::OrdenarPrimosYnoPrimos1Click(TObject *Sender)
+{
+	Cardinal x = StrToInt(Edit1->Text);
+	OrdPrimosNoPrimos(x);
+	Edit2->Text = x;
+}
+//---------------------------------------------------------------------------
+
 

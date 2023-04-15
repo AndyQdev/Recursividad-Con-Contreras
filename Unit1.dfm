@@ -3,7 +3,7 @@ object Form1: TForm1
   Top = 0
   Caption = 'Form1'
   ClientHeight = 279
-  ClientWidth = 864
+  ClientWidth = 732
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -101,18 +101,18 @@ object Form1: TForm1
     end
   end
   object GroupBox1: TGroupBox
-    Left = 384
+    Left = 375
     Top = 24
-    Width = 441
+    Width = 329
     Height = 209
     Caption = 'Vectores'
     TabOrder = 1
     object StringGrid1: TStringGrid
-      Left = 40
+      Left = 16
       Top = 42
-      Width = 177
+      Width = 289
       Height = 55
-      ColCount = 3
+      ColCount = 1
       DefaultColWidth = 40
       FixedCols = 0
       RowCount = 1
@@ -125,6 +125,24 @@ object Form1: TForm1
       Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goFixedRowDefAlign]
       ParentFont = False
       TabOrder = 0
+    end
+    object Button1: TButton
+      Left = 16
+      Top = 136
+      Width = 129
+      Height = 40
+      Caption = 'Numeros Random'
+      TabOrder = 1
+      OnClick = Button1Click
+    end
+    object Button2: TButton
+      Left = 168
+      Top = 136
+      Width = 129
+      Height = 40
+      Caption = 'Redimensionar'
+      TabOrder = 2
+      OnClick = Button2Click
     end
   end
   object MainMenu1: TMainMenu
@@ -159,6 +177,22 @@ object Form1: TForm1
       object R1: TMenuItem
         Caption = 'Next Palabra'
         OnClick = R1Click
+      end
+      object Esdescendente1: TMenuItem
+        Caption = 'Es descendente'
+        OnClick = EsDescendente1Click
+      end
+      object EsAscendente1: TMenuItem
+        Caption = 'Es Ascendente'
+        OnClick = EsAscendente1Click
+      end
+      object Ascendentedescendenteoordenado1: TMenuItem
+        Caption = 'Ascendente o Descendente'
+        OnClick = Ascendentedescendenteoordenado1Click
+      end
+      object OrdenarPrimosYnoPrimos1: TMenuItem
+        Caption = 'Ord Primos y no Primos'
+        OnClick = OrdenarPrimosYnoPrimos1Click
       end
     end
     object Cadenas1: TMenuItem
