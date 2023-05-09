@@ -170,9 +170,22 @@ void __fastcall TForm1::Suma1Click(TObject *Sender)
 {
 	Edit2->Text = Suma(StrToInt(Edit1->Text));
 }
-
 //---------------------------------------------------------------------------
-void EliminVocal(AnsiString &s){
+bool Isvocal(char a){
+	AnsiString s = "AEIOUaeiouáéíóú";
+	return s.Pos(a)>0;
+};
+//---------------------------------------------------------------------------
+void EliminVocal(AnsiString &s)
+{
+	if (s.Length()>0){
+		char c = s[1];
+		s.Delete(1,1);
+		EliminVocal(s);
+		if (!Isvocal(c)){
+            s = AnsiString(c)+s;
+		};
+	}
 
 }
 
@@ -186,11 +199,6 @@ void __fastcall TForm1::EliminarVocales1Click(TObject *Sender)
 	EliminVocal(s);
 	Edit2->Text = s;
 }
-//---------------------------------------------------------------------------
-bool Isvocal(char a){
-	AnsiString s = "AEIOUaeiouáéíóú";
-	return s.Pos(a)>0;
-};
 //---------------------------------------------------------------------------
 byte CantVoc(AnsiString s)
 {
@@ -331,14 +339,28 @@ void LoadVecRandom(TStringGrid *v, byte dimension, Word a, Word b)
 void __fastcall TForm1::Button2Click(TObject *Sender)
 {
 	StringGrid1->ColCount = StrToInt(InputBox("Dimension","Coloque la cantidad de Columnas",""));
+	StringGrid1->RowCount = StrToInt(InputBox("Dimension","Coloque la cantidad de Filas",""));
 }
 //---------------------------------------------------------------------------
-
+void LoadRandom(TStringGrid *v,  byte n, Word r)
+{
+	if (n==0){
+		v->ColCount = 0;
+	}else{
+		LoadRandom(v, n-1, r);
+		v->Cells[n-1][0] = Random(r);
+		v->ColCount = n;
+	}
+}
+//---------------------------------------------------------------------------
 void __fastcall TForm1::Button1Click(TObject *Sender)
 {
-	Word a = StrToInt(InputBox("Random","Valor inferior(>=)",""));
-	Word b = StrToInt(InputBox("Random","Valor Superior(<=)",""));
-	LoadVecRandom(StringGrid1, StringGrid1->ColCount, a, b);
+	//Word a = StrToInt(InputBox("Random","Valor inferior(>=)",""));
+	//Word b = StrToInt(InputBox("Random","Valor Superior(<=)",""));
+	//LoadVecRandom(StringGrid1, StringGrid1->ColCount, a, b);
+	Word n = StrToInt(InputBox("Random","Cantidad de numeros",""));
+	Word r = StrToInt(InputBox("Random","Coloque rango",""));
+	LoadRandom(StringGrid1, n, r);
 }
 //---------------------------------------------------------------------------
 
@@ -446,5 +468,608 @@ void __fastcall TForm1::OrdenarPrimosYnoPrimos1Click(TObject *Sender)
 	Edit2->Text = x;
 }
 //---------------------------------------------------------------------------
+void MenorFinal(TStringGrid *v, byte n){
+	if (n > 0){
+		byte a = StrToInt(v->Cells[n][0]);
+		MenorFinal(v, n-1);
+		if (a > v->Cells[n-1][0]){
+			byte aux = StrToInt(v->Cells[n-1][0]);
+			v->Cells[n-1][0] = a;
+            v->Cells[n][0] = aux;
+		}
+	}
+}
+//---------------------------------------------------------------------------
 
+void __fastcall TForm1::Menoralfinal1Click(TObject *Sender)
+{
+	byte n = StrToInt(StringGrid1->ColCount-1);
+	MenorFinal(StringGrid1, n);
+}
+//---------------------------------------------------------------------------
+bool BusqBinaria(TStringGrid *v, byte a, byte b, byte x)
+{
+	byte n = b - a + 1;
+	if (n == 1){
+		if (x == v->Cells[a][0])
+			return true;
+
+	}else if (n==0){
+		return false;
+	}else{
+		if (x == v->Cells[ (a+b) / 2][0])
+		   return true;
+		else if (x < v->Cells[(a+b) / 2][0])
+			return BusqBinaria(v, a, (a+b) / 2 -1, x);
+		else
+			return BusqBinaria(v, (a+b) / 2 +1, b, x);
+	}
+};
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Vectores2Click(TObject *Sender)
+{
+	byte r = StrToInt(InputBox("Busqueda","Coloque numero a buscar",""));
+	if (BusqBinaria(StringGrid1, 0, StringGrid1->ColCount-1, r))
+	   LbResultado->Caption = "si existe";
+	else
+		LbResultado->Caption = "No Existe";
+}
+void Burbujear(TStringGrid *v, byte n)
+{
+	if (n>1){
+		Burbujear(v, n-1);
+		if (StrToInt(v->Cells[n-1][0]) < v->Cells[n-2][0]){
+			byte aux = StrToInt(v->Cells[n-2][0]);
+			v->Cells[n-2][0] = StrToInt(v->Cells[n-1][0]);
+			v->Cells[n-1][0] = aux;
+		}
+	}
+}
+//---------------------------------------------------------------------------
+void BubbleSort(TStringGrid *v, byte n)
+{
+	Burbujear(v, n);
+	if (n>1)
+		BubbleSort(v, n-1);
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::OrdBubblesort1Click(TObject *Sender)
+{
+	BubbleSort(StringGrid1, StringGrid1->ColCount);
+}
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Burbujear1Click(TObject *Sender)
+{
+    Burbujear(StringGrid1, StringGrid1->ColCount);
+}
+//---------------------------------------------------------------------------
+Word SacarMayor(TStringGrid *v, byte n, byte &p) //saca el mayor y su posicion
+{
+	Word mayor;
+	if (n==1){
+		mayor = StrToInt(v->Cells[0][0]);
+		p = 0;
+	}else{
+		mayor = SacarMayor(v, n-1, p);
+		if (mayor < v->Cells[n-1][0]){
+			mayor = StrToInt(v->Cells[n-1][0]);
+			p = n-1;
+		}
+	}
+	return mayor;
+};
+//---------------------------------------------------------------------------
+void Selection(TStringGrid *v, byte n){ //busca el mayor y lo intecambia con el final
+		byte p = 1;
+		Word m =SacarMayor(v, n, p);
+		byte aux = StrToInt(v->Cells[n-1][0]);
+		v->Cells[n-1][0] = m;
+		v->Cells[p][0] = aux;
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::SacarMayor1Click(TObject *Sender)
+{
+	byte P = 1;
+	LbResultado->Caption = "El mayor es "+IntToStr(SacarMayor(StringGrid1, StringGrid1->ColCount, P))
+							+ " y su posicion es: "+ IntToStr(P);
+}
+//---------------------------------------------------------------------------
+void SelectionSort(TStringGrid *v, byte n)
+{
+	Selection(v, n);
+	if (n>1)
+		SelectionSort(v, n-1);
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::SelectionSort1Click(TObject *Sender)
+{
+	SelectionSort(StringGrid1, StringGrid1->ColCount);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Selection1Click(TObject *Sender)
+{
+    Selection(StringGrid1, StringGrid1->ColCount);
+}
+//---------------------------------------------------------------------------
+Word Fibonacci(byte n)
+{
+	if (n < 2){
+		return n;
+	}else{
+		return Fibonacci(n-1) + Fibonacci(n-2);
+	};
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Fibonacci1Click(TObject *Sender)
+{
+	byte r = StrToInt(InputBox("Fibonacci","Termino: ",""));
+	LbResultado->Caption = Fibonacci(r);
+}
+//---------------------------------------------------------------------------
+void LoadFibonacci(TStringGrid *v, byte n)
+{
+	if(n==0)
+		v->ColCount = 0;
+	else{
+		LoadFibonacci(v, n-1);
+		v->Cells[n-1][0] = Fibonacci(n-1);
+        v->ColCount = n;
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::CargarFibonacci1Click(TObject *Sender)
+{
+	byte n = StrToInt(InputBox("Fibonacci","Cantidad de elementos: ",""));
+	LoadFibonacci(StringGrid1, n);
+}
+//---------------------------------------------------------------------------
+void LoadVMenor100(TStringGrid *v, Cardinal &x, byte &n)
+{
+	if ((x<10)&&(x!=0)){
+		n = 1;
+		v->Cells[0][0]=x;
+	}else if(x == 0) {
+		n = 0;
+	}else{
+		byte num = x % 100;
+		x = x / 100;
+		LoadVMenor100(v, x, n);
+		n++;
+		v->Cells[n-1][0]= num;
+	}
+	v->ColCount=n;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LoadVector1001Click(TObject *Sender)
+{
+	Cardinal x = StrToInt(InputBox("Numero","Coloque Numero",""));
+	byte n=0;
+	LoadVMenor100(StringGrid1, x, n);
+}
+//---------------------------------------------------------------------------
+void InvNum(Cardinal &x)
+{
+	if (x>=10){
+		byte num = x % 10;
+		x = x / 10;
+		InvNum(x);
+		x = (num*PotenciaNum(10, log10(x)+1))+ x;
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::InvertirNumero1Click(TObject *Sender)
+{
+	Cardinal x= StrToInt(Edit1->Text);
+	InvNum(x);
+    LbResultado->Caption= x;
+}
+//---------------------------------------------------------------------------
+AnsiString ElementInv(TStringGrid *v, byte n)
+{
+	AnsiString h = "";
+	if (n>0){
+	   h = ElementInv(v, n-1);
+	   Cardinal num = StrToInt(v->Cells[n-1][0]);
+	   InvNum(num);
+	   h = h + num;
+	}
+	return h;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Devolverelementosinvertidos1Click(TObject *Sender)
+{
+	LbResultado->Caption = ElementInv(StringGrid1, StringGrid1->ColCount);
+}
+//---------------------------------------------------------------------------
+void LlenarF2(TStringGrid *A, byte F, byte n)
+{
+	if (n > 0)
+	{
+		if (n == 1)
+			A->Cells[0][F]= F*StrToInt(A->ColCount) + 1;
+		else{
+			LlenarF2(A, F, n-1);
+			A->Cells[n-1][F] = StrToInt(A->Cells[n-2][F]) + 1;
+		}
+	}
+}
+//---------------------------------------------------------------------------
+void LoadSec(TStringGrid *A, byte m, byte n)
+		//A = Matriz;  m = CantFilas;  n = CantColumnas;
+{
+	if (m > 0){//Caso General
+		LoadSec(A, m-1, n);
+		LlenarF2(A, m-1, n); //como son posiciones fila 0, 1, 2, 3; y m-1 = 4 - 1=> decimos queremos llenar la fila 3
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Matrices2Click(TObject *Sender)
+{
+	LoadSec(StringGrid1, StringGrid1->RowCount, StringGrid1->ColCount);
+}
+//---------------------------------------------------------------------------
+void LlenarF(TStringGrid *A, byte F, byte a, byte b, byte d)
+{
+	byte n = b - a +1;
+	if (n > 0){
+		LlenarF(A, F, a, b-1, d);
+		A->Cells[b][F]= d;
+	}
+}
+//---------------------------------------------------------------------------
+void LlenarC(TStringGrid *A, byte C, byte a, byte b, byte d)
+{
+	byte m = b - a +1;
+	if (m > 0){
+		LlenarC(A, C, a, b-1, d);
+		A->Cells[C][b]= d;
+	}
+}
+//---------------------------------------------------------------------------
+void LoadAfueraAdentro(TStringGrid *A, byte Fa, byte Fb, byte Ca,byte Cb)
+{
+	byte m = Fb - Fa +1, n = Cb - Ca +1;
+	if (n > 0){
+		if (n == 1)
+            A->Cells[Ca][Fa]=1;
+		else{
+			LoadAfueraAdentro(A, Fa+1, Fb-1, Ca+1, Cb-1);
+			LlenarF(A, Fa, Ca, Cb, (m/2)+1);
+			LlenarF(A, Fb, Ca, Cb, (m/2)+1);
+			LlenarC(A, Ca, Fa, Fb, (m/2)+1);
+			LlenarC(A, Cb, Fa, Fb, (m/2)+1);
+		}
+
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Cargadeafuerahaciaadentro1Click(TObject *Sender)
+{
+	LoadAfueraAdentro(StringGrid1, 0, StringGrid1->RowCount-1, 0, StringGrid1->ColCount-1);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LlenarF1Click(TObject *Sender)
+{
+	LlenarC(StringGrid1, 0, 0, StringGrid1->RowCount-1, 4);
+}
+//---------------------------------------------------------------------------
+void LoadL(TStringGrid *A,byte Fa,byte Fb,byte Ca, byte Cb, byte d)
+{
+	byte n = Fb - Fa +1, m = Cb - Ca +1;
+	if (n>0){
+		if (n == 1)
+			A->Cells[Ca][Fa]= A->ColCount;
+		else{
+			LoadL(A, Fa+1, Fb-1, Ca+1, Cb-1, d+2);
+			LlenarF(A, Fa, Ca, Cb, d);
+			LlenarC(A, Cb, Fa, Fb-1, d);
+			LlenarF(A, Fb, Ca, Cb, d+1);
+			LlenarC(A, Ca, Fa+1, Fb, d+1);
+		}
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::CargarenL1Click(TObject *Sender)
+{
+	LoadL(StringGrid1, 0, StringGrid1->RowCount-1, 0, StringGrid1->ColCount-1, 1);
+}
+//---------------------------------------------------------------------------
+void DeleteMElement(TStringGrid *v, byte a, byte b, byte p, byte m)
+{
+	byte n = b - a +1;
+	if (n>0){
+			DeleteMElement(v, a, b-1, p, m);
+			if (b > p+m-1){
+				v->Cells[b-m][0]= v->Cells[b][0];
+			}else if(b >= p)
+				v->ColCount=v->ColCount-1;
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::ElminiarMelementos1Click(TObject *Sender)
+{
+	byte p = StrToInt(InputBox("Posicion","Coloque Posicion: ",""));
+	byte m = StrToInt(InputBox("Elementos","Cant elementos a borrar: ",""));
+	DeleteMElement(StringGrid1, 0, StringGrid1->ColCount-1, p, m);
+}
+//---------------------------------------------------------------------------
+void CargarV(TStringGrid *v, byte N)
+{
+	if (N>0){
+		byte m= v->RowCount;
+		CargarV(v, N-1);
+		byte n = N;
+		v->Cells[(N-1)/m][(N-1)%m] = N;
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::CargaSeccomovex1Click(TObject *Sender)
+{
+	CargarV(StringGrid1, StringGrid1->ColCount*StringGrid1->RowCount);
+}
+//---------------------------------------------------------------------------
+void LlenarF1M(TStringGrid *v, byte F, byte a, byte b, byte &d) //Rellena de derecha a izquierda
+{
+	byte n = a - b +1;
+	if (n>0){
+		LlenarF1M(v, F, a, b+1, d);
+		d++;
+		v->Cells[b][F]= d;
+	}
+}
+//---------------------------------------------------------------------------
+void LlenarF2M(TStringGrid *v, byte F, byte a, byte b, byte &d) //Rellena de izquierda a derecha [5,4,3,2,1]
+{
+	byte n = a - b +1;
+	if (n>0){
+		LlenarF2M(v, F, a-1, b, d);
+		d++;
+		v->Cells[a][F]= d;
+	}
+}
+//---------------------------------------------------------------------------
+void LlenarF1M2(TStringGrid *v, byte F, byte a, byte b, byte &d) //Rellena de derecha a izquierda[5,4,3,2,1]
+{
+	byte n = b - a +1;
+	if (n>0){
+		LlenarF1M2(v, F, a+1, b, d);
+		d++;
+		v->Cells[a][F]= d;
+	}
+}
+//---------------------------------------------------------------------------
+void LlenarF2M2(TStringGrid *v, byte F, byte a, byte b, byte &d) //Rellena de izquierda a derecha [1,2,3,4,5]
+{
+	byte n = b - a +1;
+	if (n>0){
+		LlenarF2M2(v, F, a, b-1, d);
+		d++;
+		v->Cells[b][F]= d;
+	}
+}
+//---------------------------------------------------------------------------
+void LoadMitad(TStringGrid *A, byte Fa,byte Fb,byte Ca,byte Cb,byte &d)
+{
+	byte n = Fa - Fb +1, m = Ca - Cb +1;
+	if (n>0){
+		if (n==1){
+            A->Cells[Cb][Fb]= d+1;
+		}else{
+			LlenarF1M(A, Fa, Ca, Cb, d);
+			LlenarF2M(A, Fa-1, Ca-1, Cb, d);
+			LoadMitad(A, Fa-2, Fb, Ca-2, Cb, d);
+		}
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::CargarMitadSec1Click(TObject *Sender)
+{
+	byte d = 0;
+	LoadMitad(StringGrid1, StringGrid1->RowCount-1, 0, StringGrid1->ColCount-1, 0, d);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::LlenarF1dedereaizquiier1Click(TObject *Sender)
+{
+	byte d = 0;
+	LlenarF2M(StringGrid1, 0, StringGrid1->ColCount-1, 0, d);
+}
+//---------------------------------------------------------------------------
+void LoadMitad2(TStringGrid *A, byte Fa, byte Fb, byte Ca, byte Cb, byte &d)
+{
+	byte n = Cb - Ca +1, m = Fb - Fa +1;
+	if (n > 0){
+		if (n==1){
+            A->Cells[Cb][Fb] = d+1;
+		}else{
+			LlenarF2M2(A, Fa, Ca, Cb, d);
+			LlenarF1M2(A, Fa+1, Ca+1, Cb, d);
+			LoadMitad2(A, Fa+2, Fb, Ca+2, Cb, d);
+		}
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Llenar2Decrecente1Click(TObject *Sender)
+{
+	byte d = 0;
+	LoadMitad2(StringGrid1, 0, StringGrid1->RowCount-1, 0, StringGrid1->ColCount-1, d);
+}
+//---------------------------------------------------------------------------
+void LoadL2(TStringGrid *A, byte Fa, byte Fb, byte Ca, byte Cb,byte d)
+{
+	byte n = Cb - Ca +1, m = Fb - Fa +1;
+	if (n > 0){
+		if (n==1)
+            A->Cells[Cb][Fb]= d;
+		else{
+			LoadL2(A, Fa+1, Fb, Ca+1, Cb, d+1);
+			LlenarF(A, Fa, Ca, Cb, d);
+			LlenarC(A, Ca, Fa, Fb, d);
+		}
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::LlenarenL1Click(TObject *Sender)
+{
+	byte d = 1;
+	LoadL2(StringGrid1, 0, StringGrid1->RowCount-1, 0, StringGrid1->ColCount -1, d);
+}
+bool IsNum(char c){
+	return (c>='1')and(c<='9');
+}
+//---------------------------------------------------------------------------
+void DeletePrimerNum(AnsiString &s)
+{
+	if (s.Length()>0){
+		char c = s[1];
+		s.Delete(1,1);
+		if (!IsNum(c)){
+			DeletePrimerNum(s);
+			s = AnsiString(c)+ s;
+		}else if ((s!="")&&(IsNum(s[1]))){
+			DeletePrimerNum(s);
+		}
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::DeletePrimernumero1Click(TObject *Sender)
+{
+	AnsiString x = Edit1->Text;
+	DeletePrimerNum(x);
+	Edit2->Text = x;
+}
+
+//---------------------------------------------------------------------------
+void InsertD(TStringGrid *v, byte x,byte a,byte b)
+{
+	byte n = b - a +1;
+	if(n==0){
+	   v->ColCount++;
+       v->Cells[b+1][0]=x;
+	}else{
+		if (v->Cells[a][0]<x){
+			byte aux = StrToInt(v->Cells[a][0]);
+			v->Cells[a][0]=x;
+			InsertD(v, x, a+1, b);
+			v->Cells[a+1][0]= aux;
+		}else{
+			InsertD(v, x, a+1, b);
+		}
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::InsetarDigito1Click(TObject *Sender)
+{
+	byte x = StrToInt(InputBox("Coloque el digito","digito: ",""));
+	InsertD(StringGrid1, x, 0, StringGrid1->ColCount-1);
+}
+//---------------------------------------------------------------------------
+void LlenarDiagonal(TStringGrid *A, byte Fa, byte Fb, byte Ca,byte Cb,byte &d)
+{
+	byte n = Cb - Ca +1;
+	if (n > 0){
+		d++;
+		A->Cells[Ca][Fb]=d;
+		LlenarDiagonal(A, Fa, Fb-1, Ca+1, Cb, d);
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::LlenarDIagonal1Click(TObject *Sender)
+{
+	byte d = 0;
+	LlenarDiagonal(StringGrid1, 0, StringGrid1->RowCount-1, 0, StringGrid1->ColCount-1, d);
+}
+
+//---------------------------------------------------------------------------
+
+void LoadMatrizDiag1(TStringGrid *A, byte Fa, byte Fb, byte Ca,byte Cb,byte &d) //Carga la primera mitad
+{
+	byte n = Cb - Ca+1, m = Fb - Fa +1;
+	if (n > 0){
+		if (n==1){
+			A->Cells[0][0]=1;
+		}else{
+			LlenarDiagonal(A, 0, Fa+1, 0, Ca+1, d);
+			LoadMatrizDiag1(A, Fa+1, Fb, Ca+1, Cb, d);
+		}
+	}
+};
+//---------------------------------------------------------------------------
+
+void LoadMatrizDiag2(TStringGrid *A, byte Fa, byte Fb, byte Ca,byte Cb,byte &d) //Carga la segunda mitad
+{
+	byte n = Cb - Ca+1, m = Fb - Fa +1;
+	if (n > 0){
+		if (n==1){
+			A->Cells[Cb][Fb]= A->ColCount*A->RowCount;
+		}else{
+			LlenarDiagonal(A, Fa, Fb, Ca, Cb, d);
+			LoadMatrizDiag2(A, Fa+1, Fb, Ca+1, Cb, d);
+		}
+	}
+};
+
+//---------------------------------------------------------------------------
+void __fastcall TForm1::CargarMatrizdiagonal1Click(TObject *Sender)
+{
+	byte d = 1;
+	LoadMatrizDiag2(StringGrid1, 0, StringGrid1->RowCount-1, 0, StringGrid1->ColCount-1, d);
+}
+//---------------------------------------------------------------------------
+
+void LoadMatrizDiagTotal(TStringGrid *A, byte Fa, byte Fb, byte Ca,byte Cb,byte &d)
+{
+  LoadMatrizDiag1(A, Fa, Fb, Ca, Cb, d);
+  LoadMatrizDiag2(A, Fa+1, Fb, Ca+1, Cb, d);
+}
+
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::CargarMatrizdiagonaltotal1Click(TObject *Sender)
+{
+	byte d = 1;
+	LoadMatrizDiagTotal(StringGrid1, 0, StringGrid1->RowCount-1, 0, StringGrid1->ColCount-1, d);
+}
+//---------------------------------------------------------------------------
+AnsiString CadNveces(Cardinal n, byte d)
+{
+	if (n > 0)
+		 return AnsiString(d) + CadNveces(n-1, d);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::RepNveces1Click(TObject *Sender)
+{
+	Cardinal n = StrToInt(Edit1->Text);
+	Edit3->Text = CadNveces(n, StrToInt(Edit2->Text));
+}
+//---------------------------------------------------------------------------
+AnsiString NumRepNveces(Cardinal &x)
+{
+	AnsiString cad;
+	if (x > 0){
+		byte num = x % 10;
+		x = x / 10;
+		cad =  NumRepNveces(x) + CadNveces(num, num);
+	}
+	return cad;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::NumeroRepNveces1Click(TObject *Sender)
+{
+	Cardinal x = StrToInt(Edit1->Text);
+	Edit3->Text = NumRepNveces(x);
+}
+//---------------------------------------------------------------------------
 

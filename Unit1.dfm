@@ -1,9 +1,10 @@
 object Form1: TForm1
   Left = 0
   Top = 0
+  ActiveControl = Edit1
   Caption = 'Form1'
-  ClientHeight = 279
-  ClientWidth = 732
+  ClientHeight = 389
+  ClientWidth = 746
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,12 +15,37 @@ object Form1: TForm1
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
+  object Label4: TLabel
+    Left = 148
+    Top = 319
+    Width = 103
+    Height = 23
+    Caption = 'Resultado:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -19
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LbResultado: TLabel
+    Left = 276
+    Top = 319
+    Width = 57
+    Height = 23
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -19
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
   object Ejercicios: TGroupBox
     Left = 64
     Top = 24
     Width = 289
     Height = 209
-    Caption = 'Ejercicios'
+    Caption = 'Cadenas y numeros'
     TabOrder = 0
     object Label1: TLabel
       Left = 16
@@ -101,17 +127,17 @@ object Form1: TForm1
     end
   end
   object GroupBox1: TGroupBox
-    Left = 375
+    Left = 359
     Top = 24
-    Width = 329
-    Height = 209
+    Width = 370
+    Height = 265
     Caption = 'Vectores'
     TabOrder = 1
     object StringGrid1: TStringGrid
       Left = 16
-      Top = 42
-      Width = 289
-      Height = 55
+      Top = 24
+      Width = 345
+      Height = 178
       ColCount = 1
       DefaultColWidth = 40
       FixedCols = 0
@@ -127,8 +153,8 @@ object Form1: TForm1
       TabOrder = 0
     end
     object Button1: TButton
-      Left = 16
-      Top = 136
+      Left = 32
+      Top = 208
       Width = 129
       Height = 40
       Caption = 'Numeros Random'
@@ -136,8 +162,8 @@ object Form1: TForm1
       OnClick = Button1Click
     end
     object Button2: TButton
-      Left = 168
-      Top = 136
+      Left = 192
+      Top = 208
       Width = 129
       Height = 40
       Caption = 'Redimensionar'
@@ -174,10 +200,6 @@ object Form1: TForm1
         Caption = 'Suma'
         OnClick = Suma1Click
       end
-      object R1: TMenuItem
-        Caption = 'Next Palabra'
-        OnClick = R1Click
-      end
       object Esdescendente1: TMenuItem
         Caption = 'Es descendente'
         OnClick = EsDescendente1Click
@@ -193,6 +215,10 @@ object Form1: TForm1
       object OrdenarPrimosYnoPrimos1: TMenuItem
         Caption = 'Ord Primos y no Primos'
         OnClick = OrdenarPrimosYnoPrimos1Click
+      end
+      object InvertirNumero1: TMenuItem
+        Caption = 'Invertir Numero'
+        OnClick = InvertirNumero1Click
       end
     end
     object Cadenas1: TMenuItem
@@ -211,6 +237,128 @@ object Form1: TForm1
       object Invertir: TMenuItem
         Caption = 'Invertir Cadena'
         OnClick = InvertirClick
+      end
+      object Menoralfinal1: TMenuItem
+        Caption = 'Menor al final'
+        OnClick = Menoralfinal1Click
+      end
+      object R1: TMenuItem
+        Caption = 'Next Palabra'
+        OnClick = R1Click
+      end
+      object DeletePrimernumero1: TMenuItem
+        Caption = 'Delete Primer numero'
+        OnClick = DeletePrimernumero1Click
+      end
+      object RepNveces1: TMenuItem
+        Caption = 'RepNveces'
+        OnClick = RepNveces1Click
+      end
+      object NumeroRepNveces1: TMenuItem
+        Caption = 'NumeroRepNveces'
+        OnClick = NumeroRepNveces1Click
+      end
+    end
+    object Vectores1: TMenuItem
+      Caption = 'Vectores'
+      object Vectores2: TMenuItem
+        Caption = 'Busq Binaria'
+        OnClick = Vectores2Click
+      end
+      object OrdBubblesort1: TMenuItem
+        Caption = 'Ord Bubble sort'
+        OnClick = OrdBubblesort1Click
+      end
+      object Burbujear1: TMenuItem
+        Caption = 'Burbujear'
+        OnClick = Burbujear1Click
+      end
+      object SelectionSort1: TMenuItem
+        Caption = 'Selection Sort'
+        OnClick = SelectionSort1Click
+      end
+      object Selection1: TMenuItem
+        Caption = 'Selection'
+        OnClick = Selection1Click
+      end
+      object SacarMayor1: TMenuItem
+        Caption = 'Sacar Mayor'
+        OnClick = SacarMayor1Click
+      end
+      object Fibonacci1: TMenuItem
+        Caption = 'Fibonacci'
+        OnClick = Fibonacci1Click
+      end
+      object CargarFibonacci1: TMenuItem
+        Caption = 'Cargar Fibonacci'
+        OnClick = CargarFibonacci1Click
+      end
+      object LoadVector1001: TMenuItem
+        Caption = 'Load Vector <100'
+        OnClick = LoadVector1001Click
+      end
+      object Devolverelementosinvertidos1: TMenuItem
+        Caption = 'Devolver elementos invertidos'
+        OnClick = Devolverelementosinvertidos1Click
+      end
+      object ElminiarMelementos1: TMenuItem
+        Caption = 'Elminiar M elementos'
+        OnClick = ElminiarMelementos1Click
+      end
+      object InsetarDigito1: TMenuItem
+        Caption = 'Insetar Digito'
+        OnClick = InsetarDigito1Click
+      end
+    end
+    object Matrices1: TMenuItem
+      Caption = 'Matrices'
+      object Matrices2: TMenuItem
+        Caption = 'Carga secuencial'
+        OnClick = Matrices2Click
+      end
+      object Cargadeafuerahaciaadentro1: TMenuItem
+        Caption = 'Carga de afuera hacia adentro'
+        OnClick = Cargadeafuerahaciaadentro1Click
+      end
+      object LlenarF1: TMenuItem
+        Caption = 'Llenar Filas'
+        OnClick = LlenarF1Click
+      end
+      object CargarenL1: TMenuItem
+        Caption = 'Cargar en L'
+        OnClick = CargarenL1Click
+      end
+      object CargaSeccomovex1: TMenuItem
+        Caption = 'Carga Sec como vec'
+        OnClick = CargaSeccomovex1Click
+      end
+      object CargarMitadSec1: TMenuItem
+        Caption = 'CargarMitadSec'
+        OnClick = CargarMitadSec1Click
+      end
+      object LlenarF1dedereaizquiier1: TMenuItem
+        Caption = 'LlenarF1 de dere a izquiier'
+        OnClick = LlenarF1dedereaizquiier1Click
+      end
+      object Llenar2Decrecente1: TMenuItem
+        Caption = 'Llenar 2 Decrecente'
+        OnClick = Llenar2Decrecente1Click
+      end
+      object LlenarenL1: TMenuItem
+        Caption = 'Llenar en L'
+        OnClick = LlenarenL1Click
+      end
+      object LlenarDIagonal1: TMenuItem
+        Caption = 'Llenar DIagonal'
+        OnClick = LlenarDIagonal1Click
+      end
+      object CargarMatrizdiagonal1: TMenuItem
+        Caption = 'Cargar Matriz diagonal mitad'
+        OnClick = CargarMatrizdiagonal1Click
+      end
+      object CargarMatrizdiagonaltotal1: TMenuItem
+        Caption = 'Cargar Matriz diagonal total'
+        OnClick = CargarMatrizdiagonaltotal1Click
       end
     end
   end
